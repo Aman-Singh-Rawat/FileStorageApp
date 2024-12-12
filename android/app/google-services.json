@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "873168968455",
+    "project_id": "online-drive-a75ca",
+    "storage_bucket": "online-drive-a75ca.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:873168968455:android:3dd038958151fb244ac3a2",
+        "android_client_info": {
+          "package_name": "com.example.cloudinary_file_upload"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe-tVyZ5PAm5ismbbCJS_UWgLerEFvpF4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
