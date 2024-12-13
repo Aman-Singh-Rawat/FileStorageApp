@@ -1,4 +1,7 @@
+import 'package:cloudinary_file_upload/services/auth_service.dart';
 import 'package:cloudinary_file_upload/views/home.dart';
+import 'package:cloudinary_file_upload/views/login.dart';
+import 'package:cloudinary_file_upload/views/signup.dart';
 import 'package:cloudinary_file_upload/views/upload_area.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -25,9 +28,46 @@ class MyApp extends StatelessWidget {
       title: 'Online Drive',
       theme: ThemeData.dark(),
       routes: {
-        "/": (context) => const HomePage(),
+        "/": (context) => const CheckUser(),
+        "/home": (context) => const HomePage(),
+        "/login": (context) => const LoginPage(),
+        "/signup": (context) => const SignupPage(),
         "/upload": (context) => const UploadArea(),
       },
+    );
+  }
+}
+
+class CheckUser extends StatefulWidget {
+  const CheckUser({super.key});
+
+  @override
+  State<CheckUser> createState() => _CheckUserState();
+}
+
+class _CheckUserState extends State<CheckUser> {
+
+  @override
+  void initState() {
+    AuthService().isLoggedIn().then(
+            (value) {
+          if (value) {
+            Navigator.pushReplacementNamed(context, "/home");
+          }
+          else {
+            Navigator.pushReplacementNamed(context, "/login");
+          }
+        }
+    );
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }
