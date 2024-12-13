@@ -1,6 +1,8 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
+import '../services/auth_service.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -27,6 +29,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Your Files"),
+        actions: [
+          IconButton(onPressed: () async {
+            await AuthService().logout();
+            Navigator.pushReplacementNamed(context, "/login");
+          }, icon: const Icon(Icons.logout),)
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

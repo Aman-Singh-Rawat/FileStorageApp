@@ -1,3 +1,4 @@
+import 'package:cloudinary_file_upload/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -11,6 +12,35 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  void loginAccount() {
+    if (_formKey.currentState!.validate()) {
+      AuthService().loginWithEmail(
+        _emailController.text,
+        _passwordController.text,
+      )
+          .then(
+            (value) {
+          if (value == "Login Successful") {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(const SnackBar(content: Text("Login Successful")));
+            Navigator.restorablePushNamedAndRemoveUntil(
+                context, "/home", (route) => false);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  value,
+                  style: const TextStyle(color: Colors.white),
+                ),
+                backgroundColor: Colors.red.shade400,
+              ),
+            );
+          }
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 60,
                       width: MediaQuery.of(context).size.width * .9,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: loginAccount,
                         child: const Text(
                           "Login",
                           style: TextStyle(fontSize: 16),

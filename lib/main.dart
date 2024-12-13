@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Online Drive',
       theme: ThemeData.dark(),
+      debugShowCheckedModeBanner: false,
       routes: {
         "/": (context) => const CheckUser(),
         "/home": (context) => const HomePage(),
