@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -81,7 +80,9 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         const Text("Don't have an account?"),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, "/signup");
+                          },
                           child: const Text("Sign Up"),
                         )
                       ],

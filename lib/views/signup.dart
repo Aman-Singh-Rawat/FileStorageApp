@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cloudinary_file_upload/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class SignupPage extends StatefulWidget {
@@ -12,6 +12,36 @@ class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  void createAccount() {
+    if (_formKey.currentState!.validate()) {
+      AuthService()
+          .createAccountWithEmail(
+        _emailController.text,
+        _passwordController.text,
+      )
+          .then(
+        (value) {
+          if (value == "Account Created") {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(const SnackBar(content: Text("Account Created")));
+            Navigator.restorablePushNamedAndRemoveUntil(
+                context, "/home", (route) => false);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  value,
+                  style: const TextStyle(color: Colors.white),
+                ),
+                backgroundColor: Colors.red.shade400,
+              ),
+            );
+          }
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +70,7 @@ class _SignupPageState extends State<SignupPage> {
                       width: MediaQuery.of(context).size.width * .9,
                       child: TextFormField(
                         validator: (value) =>
-                        value!.isEmpty ? "Email cannot be empty." : null,
+                            value!.isEmpty ? "Email cannot be empty." : null,
                         controller: _emailController,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
@@ -68,7 +98,7 @@ class _SignupPageState extends State<SignupPage> {
                       height: 60,
                       width: MediaQuery.of(context).size.width * .9,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: createAccount,
                         child: const Text(
                           "Sign Up",
                           style: TextStyle(fontSize: 16),
@@ -81,7 +111,9 @@ class _SignupPageState extends State<SignupPage> {
                       children: [
                         const Text("Already have an account?"),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                           child: const Text("Login"),
                         )
                       ],

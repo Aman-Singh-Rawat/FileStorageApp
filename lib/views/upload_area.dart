@@ -1,6 +1,5 @@
 import 'package:cloudinary_file_upload/services/cloudinary_service.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class UploadArea extends StatefulWidget {
@@ -48,10 +47,10 @@ class _UploadAreaState extends State<UploadArea> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Upload Area"),
+        title: const Text("Upload Area"),
       ),
       body: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
             TextFormField(
@@ -84,13 +83,13 @@ class _UploadAreaState extends State<UploadArea> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text("Cancel"),
+                    child: const Text("Cancel"),
                   ),
                 ),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: _uploadFile,
-                    child: Text("Upload"),
+                    child: const Text("Upload"),
                   ),
                 )
               ],
