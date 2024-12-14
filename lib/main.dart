@@ -26,7 +26,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Online Drive',
-      theme: ThemeData.dark(),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF8A51F1),)
+      ),
       debugShowCheckedModeBanner: false,
       routes: {
         "/": (context) => const CheckUser(),

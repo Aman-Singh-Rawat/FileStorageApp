@@ -37,10 +37,10 @@ class _UploadAreaState extends State<UploadArea> {
   }
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _selectedFile =
-        ModalRoute.of(context)!.settings.arguments as FilePickerResult;
+    ModalRoute.of(context)!.settings.arguments as FilePickerResult;
   }
 
   @override
