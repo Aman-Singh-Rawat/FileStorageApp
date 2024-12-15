@@ -1,4 +1,6 @@
 import 'package:cloudinary_file_upload/services/db_service.dart';
+import 'package:cloudinary_file_upload/views/preview_image.dart';
+import 'package:cloudinary_file_upload/views/preview_video.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -72,43 +74,53 @@ class _HomePageState extends State<HomePage> {
                   String ext = userUploadedFiles[index]["extension"];
                   String publicId = userUploadedFiles[index]["id"];
                   String fileUrl = userUploadedFiles[index]["url"];
+                  bool flag = ext == "png" || ext == "jpg" || ext == "jpeg";
 
-                  return Container(
-                    color: Colors.grey.shade100,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: ext == "png" || ext == "jpg" || ext == "jpeg"
-                              ? Image.network(
-                                  fileUrl,
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                  fit: BoxFit.cover,
-                                )
-                              : const Icon(Icons.movie),
+                  return InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => flag
+                              ? PreviewImage(url: fileUrl)
+                              : PreviewVideo(videoUrl: fileUrl),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Icon(
-                                ext == "png" || ext == "jpg" || ext == "jpeg"
-                                    ? Icons.image
-                                    : Icons.movie,
-                              ),
-                              SizedBox(width: 10),
-                              Expanded(
-                                child: Text(
-                                  name,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
+                      );
+                    },
+                    child: Container(
+                      color: Colors.grey.shade100,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: flag
+                                ? Image.network(
+                                    fileUrl,
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    fit: BoxFit.cover,
+                                  )
+                                : const Icon(Icons.movie),
                           ),
-                        )
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  flag ? Icons.image : Icons.movie,
+                                ),
+                                SizedBox(width: 10),
+                                Expanded(
+                                  child: Text(
+                                    name,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   );
                 },
