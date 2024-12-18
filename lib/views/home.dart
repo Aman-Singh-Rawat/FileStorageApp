@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                                 Icon(
                                   flag ? Icons.image : Icons.movie,
                                 ),
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 Expanded(
                                   child: Text(
                                     name,

@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Online Drive',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF8A51F1),)
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF8A51F1),)
       ),
       debugShowCheckedModeBanner: false,
       routes: {
