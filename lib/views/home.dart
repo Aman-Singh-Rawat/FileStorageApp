@@ -16,6 +16,47 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   FilePickerResult? _filePickerResult;
 
+  void deleteData(String id, publicId) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Delete file"),
+        content: const Text("Are you sure you want to delete?"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text("No"),
+          ),
+          TextButton(
+            onPressed: () async {
+              final bool deleteResult =
+                  await DbService().deleteFile(id, publicId);
+
+                if (deleteResult) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("File deleted"),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Error in deleting file"),
+                    ),
+                  );
+                }
+                Navigator.pop(context);
+
+            },
+            child: const Text("Yes"),
+          )
+        ],
+      ),
+    );
+  }
+
   void _openFilePicker() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowMultiple: false,
@@ -52,7 +93,7 @@ class _HomePageState extends State<HomePage> {
         child: const Icon(Icons.add),
       ),
       body: StreamBuilder(
-        stream: DbService().readuploadedFiles(),
+        stream: DbService().readUploadedFiles(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List userUploadedFiles = snapshot.data!.docs;
@@ -77,6 +118,9 @@ class _HomePageState extends State<HomePage> {
                   bool flag = ext == "png" || ext == "jpg" || ext == "jpeg";
 
                   return InkWell(
+                    onLongPress: () {
+                      deleteData(snapshot.data!.docs[index].id, publicId);
+                    },
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(

@@ -74,7 +74,7 @@ Future<bool> deleteFromCloudinary(String publicId) async {
 
   String signature = digest.toString();
 
-  var uri = Uri.parse("https://api.cloudinary.com/v1_1$cloudName/raw/destroy/");
+  var uri = Uri.parse("https://api.cloudinary.com/v1_1/$cloudName/raw/destroy/");
 
   var response = await http.post(
     uri,
