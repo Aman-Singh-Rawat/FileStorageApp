@@ -6,6 +6,7 @@ import 'package:cloudinary_file_upload/views/upload_area.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'firebase_options.dart';
 
@@ -27,7 +28,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Online Drive',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF8A51F1),)
+        textTheme: GoogleFonts.latoTextTheme(),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF8A51F1),
+        ),
       ),
       debugShowCheckedModeBanner: false,
       routes: {
@@ -49,19 +53,15 @@ class CheckUser extends StatefulWidget {
 }
 
 class _CheckUserState extends State<CheckUser> {
-
   @override
   void initState() {
-    AuthService().isLoggedIn().then(
-            (value) {
-          if (value) {
-            Navigator.pushReplacementNamed(context, "/home");
-          }
-          else {
-            Navigator.pushReplacementNamed(context, "/login");
-          }
-        }
-    );
+    AuthService().isLoggedIn().then((value) {
+      if (value) {
+        Navigator.pushReplacementNamed(context, "/home");
+      } else {
+        Navigator.pushReplacementNamed(context, "/login");
+      }
+    });
     super.initState();
   }
 
